@@ -18,11 +18,16 @@ router.get('/test', (req, res) => {
   res.send(CryptoJS.AES.encrypt(req.header('id'), process.env.SECRET_KEY).toString());
 })
 
+// set up the error handler
+app.use('*' ,(req, res, next) => {
+    res.status(500).send("Something failed.");
+});
 
 
 function setter(app) {
     // set up the routes for the api
     app.use("/api/v1", router)
+
 }
 
 module.exports = setter;
